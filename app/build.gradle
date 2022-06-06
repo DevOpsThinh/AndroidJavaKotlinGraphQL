@@ -1,0 +1,96 @@
+/**
+ * Kotlin Script
+ *
+ * @author Nguyen Truong Thinh
+ * Contact me: nguyentruongthinhvn2020@gmail.com || +84393280504
+ * */
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+    id 'androidx.navigation.safeargs.kotlin'
+    id 'com.apollographql.apollo'
+}
+
+android {
+    compileSdk rootProject.ext.compileSdkVersion
+
+    // Conceal API Keys
+    def secretFile = rootProject.file("secret.properties")
+    def secretProp = new Properties()
+    secretProp.load(new FileInputStream(secretFile))
+
+    defaultConfig {
+        buildConfigField "String", "GRAPHQL_API_KEY", secretProp['GRAPHQL_API_KEY']
+        applicationId "com.forever.bee.goworld"
+        minSdk rootProject.ext.minSdkVersion
+        targetSdk rootProject.ext.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+    buildFeatures {
+        viewBinding true
+    }
+
+    apollo {
+        useSemanticNaming = false
+        packageName.set("com.forever.bee.akgraphql")
+    }
+}
+
+dependencies {
+
+    implementation 'androidx.core:core-ktx:1.7.0'
+    implementation 'androidx.appcompat:appcompat:1.4.1'
+    implementation "com.google.android.material:material:$material_version"
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+
+    // Navigation
+    implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
+    implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
+
+    // Apollo's RxJava extensions
+    implementation "com.apollographql.apollo:apollo-rx2-support:$apollo_android"
+
+
+    // Apollo-Android
+    implementation "com.apollographql.apollo:apollo-runtime:$apollo_android"
+    implementation "com.apollographql.apollo:apollo-normalized-cache-sqlite:$apollo_android"
+
+    // Network
+    implementation 'com.google.code.gson:gson:2.9.0'
+    implementation "com.squareup.okhttp3:okhttp:$okhttp3_version"
+
+    // Reactive programming - RxJava
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.21'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
+
+    // Utils
+    implementation "com.jakewharton.threetenabp:threetenabp:$threetenabp_version"
+    debugImplementation "com.squareup.leakcanary:leakcanary-android:$leakcanary_version"
+}
