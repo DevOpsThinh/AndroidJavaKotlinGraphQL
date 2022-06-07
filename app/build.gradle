@@ -7,9 +7,6 @@
 
 plugins {
     id 'com.android.application'
-    id 'org.jetbrains.kotlin.android'
-    id 'kotlin-kapt'
-    id 'androidx.navigation.safeargs.kotlin'
     id 'com.apollographql.apollo'
 }
 
@@ -22,7 +19,8 @@ android {
     secretProp.load(new FileInputStream(secretFile))
 
     defaultConfig {
-        buildConfigField "String", "GRAPHQL_API_KEY", secretProp['GRAPHQL_API_KEY']
+        buildConfigField "String", "GITHUB_TOKEN", secretProp['GITHUB_TOKEN']
+        buildConfigField "String", "SERVER_URL", secretProp['SERVER_URL']
         applicationId "com.forever.bee.goworld"
         minSdk rootProject.ext.minSdkVersion
         targetSdk rootProject.ext.targetSdkVersion
@@ -54,7 +52,7 @@ android {
 
     apollo {
         useSemanticNaming = false
-        packageName.set("com.forever.bee.akgraphql")
+//        packageName.set("com.forever.bee.akgraphql")
     }
 }
 
@@ -80,7 +78,6 @@ dependencies {
 
     // Apollo-Android
     implementation "com.apollographql.apollo:apollo-runtime:$apollo_android"
-    implementation "com.apollographql.apollo:apollo-normalized-cache-sqlite:$apollo_android"
 
     // Network
     implementation 'com.google.code.gson:gson:2.9.0'

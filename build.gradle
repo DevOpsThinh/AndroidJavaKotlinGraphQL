@@ -24,7 +24,6 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:7.2.0'
         classpath "com.apollographql.apollo:apollo-gradle-plugin:$apollo_android"
-        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version"
     }
 }
 

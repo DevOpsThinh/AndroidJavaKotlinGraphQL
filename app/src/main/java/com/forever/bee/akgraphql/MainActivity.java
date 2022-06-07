@@ -1,9 +1,7 @@
 package com.forever.bee.akgraphql;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
-
 import com.forever.bee.akgraphql.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
@@ -16,5 +14,9 @@ public class MainActivity extends AppCompatActivity {
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+    }
+
+    public void setLogin(String login) {
+        setTitle("Github: " + login);
     }
 }
